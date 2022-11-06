@@ -12,13 +12,13 @@ from typing import Dict, List, Tuple
 
 
 class GiniRunner:
-    def run(self, probabilities):
-        return 1 - sum(probabilities**2)
+    def run(self, class_probabilities):
+        return 1 - sum(class_probabilities**2)
 
 
 class EntropyRunner:
-    def run(self, probabilities):
-        return -sum(probabilities * np.log2(probabilities))
+    def run(self, class_probabilities):
+        return -sum(class_probabilities * np.log2(class_probabilities))
 
 
 class TreeBaseRunner:
@@ -66,8 +66,8 @@ class TreeBaseRunner:
 
     def calculate_impurity(self, labels) -> float:
         count_labels = np.array(list(Counter(labels).values()))
-        probabilities = count_labels / len(labels)
-        return self.impurity_runner.run(probabilities)
+        class_probabilities = count_labels / len(labels)
+        return self.impurity_runner.run(class_probabilities)
 
     def get_features(self):
         return self.x.columns
