@@ -78,7 +78,7 @@ class TreeBaseRunner:
         return best_feature_to_split_on, best_feature_label_to_split_on
 
     def calculate_impurity(self, labels) -> float:
-        count_labels = np.array(list(Counter(labels).values()))
+        count_labels = np.bincount(labels)
         class_probabilities = count_labels / len(labels)
         return self.impurity_runner.run(class_probabilities)
 
