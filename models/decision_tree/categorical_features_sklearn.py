@@ -91,7 +91,7 @@ class TreeBaseRunner:
     def get_best_feature_to_split_on(self, features: List[str]) -> str:
 
         best_feature = None
-        min_impurity = 1.1
+        min_impurity = np.log2(self.y.nunique()) if isinstance(self.impurity_runner, EntropyRunner) else 1
 
         for feature in features:
             feature_impurity = self.get_feature_impurity(feature)
