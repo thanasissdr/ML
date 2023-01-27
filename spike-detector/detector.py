@@ -84,12 +84,12 @@ class SpikeDetectorMovingAverage:
         return (mean - self.threshold * std) > value
 
     def set_initial_window_states(self, data: List | np.ndarray):
-        if len(data) > self.window:
-            self.rolling_window_states = data[: self.window]
+        if len(data) >= self.window:
+            self.rolling_window_states = data[: self.window + 1]
 
         else:
             raise NotEnoughDataException(
-                f"Length of initial data should be at least equal to the size of the window + 1, i.e. {self.window + 1}"
+                f"Length of initial data should be at least equal to the size of the window, i.e. {self.window}"
             )
 
     def update_rolling_window(self, value: float) -> None:
